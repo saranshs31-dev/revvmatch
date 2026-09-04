@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model generations {
+  id            Int             @id @default(autoincrement())
+  model_id      Int
+  name          String          @db.VarChar(50)
+  slug          String          @db.VarChar(50)
+  year_start    Int?
+  year_end      Int?
+  models        models          @relation(fields: [model_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  part_fitments part_fitments[]
+}
+
+model makes {
+  id     Int      @id @default(autoincrement())
+  name   String   @db.VarChar(50)
+  slug   String   @unique @db.VarChar(50)
+  models models[]
+}
+
+model models {
+  id          Int           @id @default(autoincrement())
+  make_id     Int
+  name        String        @db.VarChar(50)
+  slug        String        @db.VarChar(50)
+  generations generations[]
+  makes       makes         @relation(fields: [make_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model part_fitments {
+  id            Int         @id @default(autoincrement())
+  part_id       Int
+  generation_id Int
+  generations   generations @relation(fields: [generation_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parts         parts       @relation(fields: [part_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model parts {
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(100)
+  manufacturer  String          @db.VarChar(100)
+  category      String          @db.VarChar(50)
+  price         Decimal         @db.Decimal(10, 2)
+  image_path    String?         @db.VarChar(255)
+  fitment_note  String?
+  part_fitments part_fitments[]
+}
