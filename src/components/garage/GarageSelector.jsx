@@ -8,7 +8,10 @@ export default function GarageSelector({
   activeGen, 
   onMakeChange, 
   onModelChange, 
-  onGenChange 
+  onGenChange,
+  makes,
+  models,
+  generations 
 }) {
   return (
     <div className="w-full bg-rev-panel border border-gray-800 rounded-xl p-4 md:p-6 shadow-xl shadow-black/50 transition-all duration-300">
@@ -24,9 +27,11 @@ export default function GarageSelector({
               className="w-full bg-rev-bg border border-gray-800 text-gray-200 px-4 py-3 rounded-lg outline-none cursor-pointer focus:border-rev-accent focus:ring-2 appearance-none font-display"
             >
               <option value="">Select Make</option>
-              <option value="bmw">BMW</option>
-              <option value="porsche">Porsche</option>
-              <option value="audi">Audi</option>
+              {makes.map(make => (
+               <option key={make.id} value={make.slug}>
+                {make.name}
+               </option>
+              ))}
             </select>
             <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
@@ -47,9 +52,11 @@ export default function GarageSelector({
               className="w-full bg-rev-bg border border-gray-800 text-gray-200 px-4 py-3 rounded-lg outline-none cursor-pointer focus:border-rev-accent focus:ring-2 appearance-none font-display disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="">Select Model</option>
-              <option value="m3">M3</option>
-              <option value="911">911 GT3</option>
-              <option value="r8">R8 V10</option>
+              {models.map(model => (
+                <option key={model.id} value={model.slug}>
+                  {model.name}
+              </option>
+              ))}
             </select>
             <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400 opacity-50">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
@@ -70,9 +77,11 @@ export default function GarageSelector({
               className="w-full bg-rev-bg border border-gray-800 text-gray-200 px-4 py-3 rounded-lg outline-none cursor-pointer focus:border-rev-accent focus:ring-2 appearance-none font-display disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="">Select Generation</option>
-              <option value="e92">E92 (2007-2013)</option>
-              <option value="992">992 (2019-Present)</option>
-              <option value="4s">Type 4S (2015-2023)</option>
+              {generations.map(generation => (
+                <option key={generation.id} value={generation.slug}>
+                  {generation.name} ({generation.year_start}-{generation.year_end || 'Present'})
+                </option>
+              ))}
             </select>
             <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400 opacity-50">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
