@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default function PartCard({ image, name, manufacturer, category, price, fitmentNote }) {
+export default function PartCard({ image, name, manufacturer, category, price, fitmentNote, onViewDetails }) {
   return (
     <div className="group relative bg-rev-panel border border-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-rev-accent/5 hover:border-gray-700 transition-all duration-300 flex flex-col h-full">
       {/* Product Image Section */}
@@ -43,7 +43,10 @@ export default function PartCard({ image, name, manufacturer, category, price, f
             </span>
           </div>
           
-          <button className="bg-rev-accent hover:bg-opacity-90 active:scale-95 text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-all duration-200">
+          <button 
+            onClick={onViewDetails}
+            className="bg-rev-accent hover:bg-opacity-90 active:scale-95 text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-all duration-200"
+          >
             View Details
           </button>
         </div>
